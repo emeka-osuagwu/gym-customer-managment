@@ -19,6 +19,7 @@ $capsule = new Capsule();
 new DatabaseConnection($capsule);
 
 
+
 /*
 |-----------------------------------
 | Services Namespaces

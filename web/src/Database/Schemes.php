@@ -10,14 +10,14 @@ class Schemes
     /**
      * This method create users schema.
      */
-    public function createRequestTable()
+    public function createUserTable()
     {
         $capsule = new Capsule();
         new DatabaseConnection($capsule);
 
-        if (! Capsule::schema()->hasTable('customers')) 
+        if (! Capsule::schema()->hasTable('users')) 
         {
-            Capsule::schema()->create('customers', function ($table) {
+            Capsule::schema()->create('users', function ($table) {
                 $table->increments('id');
                 $table->string('email')->unique();
                 $table->string('first_name');
@@ -33,17 +33,17 @@ class Schemes
         }
         else
         {
-            return "table exists";
+            return "table already exists";
         }
     }
 
     /**
      * This method create users schema.
      */
-    public function dropDatabaseTable()
+    public function dropUserTable()
     {
-        if (Capsule::schema()->hasTable('customers')){
-            Capsule::schema()->drop('customers');
+        if (Capsule::schema()->hasTable('users')){
+            Capsule::schema()->drop('users');
         }
 
         return "table dropped";

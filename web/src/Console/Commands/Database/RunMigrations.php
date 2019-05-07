@@ -27,7 +27,12 @@ class RunMigrations extends Command
 		$database = new Schemes;
 
         $output->writeln(array(
-	        '<info> kontist: ' . $database->createRequestTable() . '</>',
+	        '<info> kontist: ' . $database->createUserTable() . '</>',
+	        '<info> ===============</>',
+        ));
+        
+        $output->writeln(array(
+	        '<info> kontist: ' . $database->createUserTable() . '</>',
 	        '<info> ===============</>',
         ));
 	}
