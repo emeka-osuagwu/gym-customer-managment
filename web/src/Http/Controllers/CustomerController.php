@@ -44,8 +44,6 @@ class CustomerController
 	 */
 	public function index()
 	{
-		
-		
 		return $this->twig->render('index.twig', [
 		    'articles' => [],
 		]);

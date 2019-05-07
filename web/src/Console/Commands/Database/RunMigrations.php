@@ -27,12 +27,12 @@ class RunMigrations extends Command
 		$database = new Schemes;
 
         $output->writeln(array(
-	        '<info> kontist: ' . $database->createUserTable() . '</>',
+	        '<info>' . getenv("APP_NAME") . ': ' . $database->createUserTable() . '</>',
 	        '<info> ===============</>',
         ));
-        
+
         $output->writeln(array(
-	        '<info> kontist: ' . $database->createUserTable() . '</>',
+	        '<info>' . getenv("APP_NAME") . ': ' . $database->createPlanTable() . '</>',
 	        '<info> ===============</>',
         ));
 	}

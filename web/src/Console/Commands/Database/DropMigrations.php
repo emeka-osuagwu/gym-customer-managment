@@ -27,7 +27,12 @@ class DropMigrations extends Command
 		$database = new Schemes;
 
         $output->writeln(array(
-	        '<info> kontist: ' . $database->dropDatabaseTable() . '</>',
+	        '<info>' . getenv("APP_NAME") . ': ' . $database->dropUserTable() . '</>',
+	        '<info> ===============</>',
+        ));
+
+        $output->writeln(array(
+	        '<info>' . getenv("APP_NAME") . ': ' . $database->dropPlanTable() . '</>',
 	        '<info> ===============</>',
         ));
 	}

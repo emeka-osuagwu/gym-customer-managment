@@ -7,17 +7,24 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Schemes
 {
+
+    protected $capsule;
+
+    function __construct()
+    {
+        $this->capsule = new Capsule();
+        new DatabaseConnection($this->capsule);
+    }
+
     /**
      * This method create users schema.
      */
     public function createUserTable()
     {
-        $capsule = new Capsule();
-        new DatabaseConnection($capsule);
 
-        if (! Capsule::schema()->hasTable('users')) 
+        if (! $this->capsule->schema()->hasTable('users')) 
         {
-            Capsule::schema()->create('users', function ($table) {
+            $this->capsule->schema()->create('users', function ($table) {
                 $table->increments('id');
                 $table->string('email')->unique();
                 $table->string('first_name');
@@ -29,11 +36,11 @@ class Schemes
                 $table->timestamps();
             });
             
-            return "table created";
+            return "user table created";
         }
         else
         {
-            return "table already exists";
+            return "user table already exists";
         }
     }
 
@@ -42,10 +49,46 @@ class Schemes
      */
     public function dropUserTable()
     {
-        if (Capsule::schema()->hasTable('users')){
-            Capsule::schema()->drop('users');
+        if ($this->capsule->schema()->hasTable('users')){
+            $this->capsule->schema()->drop('users');
         }
 
-        return "table dropped";
+        return "user table dropped";
+    }
+
+    /**
+     * This method create users schema.
+     */
+    public function createPlanTable()
+    {
+        if (! $this->capsule->schema()->hasTable('plans')) 
+        {
+            Capsule::schema()->create('plans', function ($table) {
+                $table->increments('id');
+                $table->string('name')->unique();
+                $table->string('description');
+                $table->string('image')->nullable();
+                $table->enum('type', ['beginner', 'expert', 'intermediate'])->default('beginner');
+                $table->timestamps();
+            });
+            
+            return "plan table created";
+        }
+        else
+        {
+            return "plan table already exists";
+        }
+    }
+
+    /**
+     * This method create users schema.
+     */
+    public function dropPlanTable()
+    {
+        if ($this->capsule->schema()->hasTable('plans')){
+            $this->capsule->schema()->drop('plans');
+        }
+
+        return "plan table dropped";
     }
 }
