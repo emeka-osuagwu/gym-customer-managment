@@ -2,7 +2,7 @@
 
 namespace Emeka\Http\Services;
 
-use Emeka\Http\Models\Customer;
+use Emeka\Http\Models\User;
 use Emeka\Http\Services\Contracts\CustomerServiceInterface;
 
 class CustomerService implements CustomerServiceInterface
@@ -13,7 +13,7 @@ class CustomerService implements CustomerServiceInterface
 	 */
 	public function getAll()
 	{
-		return Customer::all();
+		return User::all();
 	}
 
 	/**
@@ -24,7 +24,7 @@ class CustomerService implements CustomerServiceInterface
 	 */
 	public function findBy($field, $value)
 	{
-		return Customer::where($field, $value);
+		return User::where($field, $value);
 	}
 
 	/**
@@ -34,7 +34,7 @@ class CustomerService implements CustomerServiceInterface
 	 */
 	public function createRecipe($data)
 	{
-		return Customer::create($data);
+		return User::create($data);
 	}
 
 	/**
@@ -44,7 +44,7 @@ class CustomerService implements CustomerServiceInterface
 	 */
 	public function updateRecipe($data)
 	{
-		Customer::where('id', $data['id'])->update($data);
+		User::where('id', $data['id'])->update($data);
 		return $this->findBy('id', $data['id'])->get();
 	}
 }

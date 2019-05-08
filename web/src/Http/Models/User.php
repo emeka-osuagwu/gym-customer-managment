@@ -4,15 +4,15 @@ namespace Emeka\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class User extends Model
 {
     protected $fillable = [
+    	'sex',
     	'email', 
-  		'first_name',
-    	'last_name', 
-    	'phone_number', 
     	'image', 
     	'location', 
-    	'sex'
+    	'last_name', 
+  		'first_name',
+    	'phone_number', 
     ];
 }

@@ -27,7 +27,12 @@ class Seeders extends Command
 		$seeder = new Seeder;
 
         $output->writeln(array(
-	        '<info> Kontist: ' . $seeder->handel(10) . '</>',
+	        '<info>' . getenv("APP_NAME") . ': ' .$seeder->handelUserSeed(10) . '</>',
+	        '<info> ===============</>',
+        ));
+        
+        $output->writeln(array(
+	        '<info>' . getenv("APP_NAME") . ': ' .$seeder->handelPlanSeed(10) . '</>',
 	        '<info> ===============</>',
         ));
 	}

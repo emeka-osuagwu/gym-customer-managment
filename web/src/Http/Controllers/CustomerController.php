@@ -45,18 +45,52 @@ class CustomerController
 	public function index()
 	{
 		return $this->twig->render('index.twig', [
-		    'articles' => [],
+		    'articles' => ['emeka' => ' d dfdf'],
 		]);
 	}
 
+	/**
+	 * handle createCustomer s request
+	 * @return json|null
+	 */
+	public function create()
+	{
+		// if (!request()->authenticated) {
+		// 	return response()->httpCode(200)->json([
+		// 		"status" => 400000,
+		// 		"message" => "authentication required",
+		// 		"auth" => request()->authenticated
+		// 	]);
+		// }
 
+		// validate deleteCustomer 
+		$validation = $this->validationService->createCustomerValidation(input()->all());
 
+		// check if validation fails
+		if ($validation->fails()) {
+		    $errors = $validation->errors();
+		    return response()->httpCode(400)->json([
+		    	"status" => 400,
+		    	"data" => $errors->firstOfAll() 
+		    ]);
+		}
 
+		// check ifCustomer  exist in the database
+		$findRecipeByName = $this->customerService->findBy('email', input()->all(['email']))->get()->count();
 
+		// return error is exist
+		if ($findRecipeByName) {
+			return response()->httpCode(200)->json([
+				"message" => "Customer already exit",
+				"status" => 400,
+			]);
+		}	
 
-
-
-
+		return response()->httpCode(200)->json([
+			"data" => $this->customerService->createRecipe(input()->all()),
+			"status" => 200
+		]);
+	}
 
 	/**
 	 * handle get recipes request
@@ -90,48 +124,6 @@ class CustomerController
 
 		return response()->httpCode(200)->json([
 			"data" => $this->customerService->findBy('id', $id)->get(),
-			"status" => 200
-		]);
-	}
-
-	/**
-	 * handle createCustomer s request
-	 * @return json|null
-	 */
-	public function create()
-	{
-		if (!request()->authenticated) {
-			return response()->httpCode(200)->json([
-				"status" => 400,
-				"message" => "authentication required",
-				"auth" => request()->authenticated
-			]);
-		}
-
-		// validate request
-		$validations = $this->validationService->createCustomerValidation(input()->all());
-		
-		// return error is validation fails
-		if (count($validations)) {
-		    return response()->httpCode(200)->json([
-		    	"status" => 400,
-		    	"data" => $validations
-		    ]);
-		}
-
-		// check ifCustomer  exist in the database
-		$findRecipeByName = $this->customerService->findBy('email', input()->all(['email']))->get()->count();
-
-		// return error is exist
-		if ($findRecipeByName) {
-			return response()->httpCode(200)->json([
-				"message" => "Customer already exit",
-				"status" => 400,
-			]);
-		}	
-
-		return response()->httpCode(200)->json([
-			"data" => $this->customerService->createRecipe(input()->all()),
 			"status" => 200
 		]);
 	}
