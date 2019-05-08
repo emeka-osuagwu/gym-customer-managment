@@ -5,6 +5,7 @@ namespace Emeka\Http\Controllers;
 use Twig_Environment;
 use Emeka\Http\Services\ValidationService;
 use Emeka\Http\Services\Contracts\CustomerServiceInterface;
+use Emeka\Http\Services\PlanService;
 
 /**
  * Class CustomerController
@@ -12,6 +13,12 @@ use Emeka\Http\Services\Contracts\CustomerServiceInterface;
  */
 class CustomerController
 {
+	/**
+	 * Twig_Environment
+	 * @var Twig_Environment
+	 */
+	private $twig;
+
 	/**
 	 * RecipeService Service
 	 * @var RecipeService
@@ -24,16 +31,22 @@ class CustomerController
 	 */
 	protected $validationService;
 
-	private $twig;
+	/**
+	 * Plan Service
+	 * @var PlanService
+	 */
+	protected $planService;
 
 	function __construct
 	(
+		PlanService $planService,
 		Twig_Environment $twig,
 		ValidationService $validationService,
 		CustomerServiceInterface $customerService
 	)
 	{
 		$this->twig = $twig;
+		$this->planService = $planService;
 		$this->customerService = $customerService;
 		$this->validationService = $validationService;
 	}
@@ -44,8 +57,12 @@ class CustomerController
 	 */
 	public function index()
 	{
+		$plans = $this->planService->getAll();
+		$customers = $this->customerService->getAll();
+
 		return $this->twig->render('index.twig', [
-		    'articles' => ['emeka' => ' d dfdf'],
+		    'customers' => $customers,
+		    'plans' => $plans
 		]);
 	}
 

@@ -1,6 +1,25 @@
 
 
 .container.dashboard_con {
-    height: 400px;
+    /*height: 400px;*/
     margin-top: 20px;
+}
+
+.counter_con_item {
+    background: #4A90E2;
+    margin: 60px auto;
+    height: 150px;
+    text-align: center;
+    color: #fff;
+}
+
+span.counter_con_item_count {
+    display: block;
+    font-size: 81px;
+    line-height: normal;
+}
+
+span.counter_con_item_count_label {
+    font-size: 30px;
+    line-height: normal;
 }
