@@ -35,5 +35,15 @@ class DropMigrations extends Command
 	        '<info>' . getenv("APP_NAME") . ': ' . $database->dropPlanTable() . '</>',
 	        '<info> ===============</>',
         ));
+
+        $output->writeln(array(
+	        '<info>' . getenv("APP_NAME") . ': ' . $database->createUserPlanTable() . '</>',
+	        '<info> ===============</>',
+        ));
+
+        $output->writeln(array(
+	        '<info>' . getenv("APP_NAME") . ': ' . $database->createWorkOutTable() . '</>',
+	        '<info> ===============</>',
+        ));
 	}
 }

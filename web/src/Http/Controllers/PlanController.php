@@ -114,6 +114,61 @@ class PlanController
 		]);
     }
 
+    public function apiPlanAddWorkout($id)
+    {
+
+        // validate deleteCustomer 
+		$validation = $this->validationService->getPlanValidation(['id' => $id]);
+
+		// check if validation fails
+		if ($validation->fails()) {
+		    $errors = $validation->errors();
+		    return response()->httpCode(400)->json([
+		    	"status" => 400,
+		    	"data" => $errors->firstOfAll() 
+		    ]);
+		}
+
+        $request = input()->all(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+
+		$request_data = [];
+
+        // validate deleteCustomer 
+		$validation = $this->validationService->addPlanWorkoutValidation(array_merge(input()->all()));
+
+		// check if validation fails
+		if ($validation->fails()) {
+		    $errors = $validation->errors();
+		    return response()->httpCode(400)->json([
+		    	"status" => 400,
+		    	"data" => $errors->firstOfAll() 
+		    ]);
+        }
+
+        $plan = $this->planService->findBy('id', $id)->first();
+
+        // check if plan exist in the database
+		if ($plan->count() < 1) {
+			return response()->httpCode(400)->json([
+				"message" => "cant find record",
+				"status" => 400,
+			]);
+        }	
+        
+        foreach($request as $key => $value){
+            if (isset($request[$key]) && $request[$key] != '') {
+                $plan[$key] = $request[$key];
+            }
+        }
+
+        $plan->save();
+
+		return response()->httpCode(200)->json([
+			"data" => $plan,
+			"status" => 200
+		]);
+    }
+
     /**
 	 * handle update plans request
 	 * @return json|null

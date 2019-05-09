@@ -9,6 +9,14 @@ class Plan extends Model
     protected $fillable = [
     	'name',
     	'type',
-    	'description',
+		'description',
+
+		'monday',
+		'tuesday',
+		'wednesday',
+		'thursday',
+		'friday',
+		'saturday',
+		'sunday',
     ];
 }

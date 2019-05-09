@@ -29,8 +29,7 @@ Router::group(['namespace' => '\Emeka\Http\Controllers', 'exceptionHandler' => C
 		Router::get('/plan', 'planController@apiGetPlans');
 		Router::post('/plan', 'planController@apiCreatePlan');
 		Router::post('/plan/{id}', 'planController@apiUpdatePlans');
+		Router::post('/plan/{id}/workout', 'planController@apiPlanAddWorkout');
 		Router::delete('/plan/{id}', 'planController@apiDeletePlan');
-
-
 	});
 });

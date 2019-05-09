@@ -13,7 +13,7 @@ class CustomerService implements CustomerServiceInterface
 	 */
 	public function getAll()
 	{
-		return User::all();
+		return User::with('plans')->get();
 	}
 
 	/**
@@ -24,7 +24,7 @@ class CustomerService implements CustomerServiceInterface
 	 */
 	public function findBy($field, $value)
 	{
-		return User::where($field, $value);
+		return User::with('plans')->where($field, $value);
 	}
 
 	/**

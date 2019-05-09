@@ -65,7 +65,6 @@ class ValidationService
 		return $validation;
 	}
 
-
 	/**
 	 * createPlanValidation
 	 */
@@ -110,5 +109,26 @@ class ValidationService
 
 		return $validation;
 	}
+
+	/**
+	 * updateCustomerValidation
+	 */
+	public function addPlanWorkoutValidation($data)
+	{
+		$validation = $this->validator->make($data, [
+		    'monday' => 'required_if:monday|alpha_spaces',
+		    'tuesday' => 'required_if:tuesday|alpha_spaces',
+		    'wednesday' => 'required_if:wednesday|alpha_spaces',
+		    'thursday' => 'required_if:thursday|alpha_spaces',
+		    'friday' => 'required_if:friday|alpha_spaces',
+		    'saturday' => 'required_if:saturday|alpha_spaces',
+		    'sunday' => 'required_if:sunday|alpha_spaces',
+		]);
+
+		$validation->validate();
+
+		return $validation;
+	}
+	
 
 }

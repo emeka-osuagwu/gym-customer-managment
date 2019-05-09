@@ -5,6 +5,8 @@ namespace Emeka\Database;
 use Faker\Factory;
 use Emeka\Http\Models\User;
 use Emeka\Http\Models\Plan;
+use Emeka\Http\Models\UserPlan;
+use Emeka\Http\Models\Workout;
 
 class Seeder
 {
@@ -39,16 +41,53 @@ class Seeder
     {
         $faker = Factory::create();
 
-        $new_record = [];
-
         for ($i=0; $i < $size; $i++) {
             Plan::create([
-                'name' => $faker->email,
+                'name' => $faker->name,
                 'description' => $faker->name,
                 'type' => rand(0, 1) ? "beginner" : "expert",
             ]);
         }
 
         return $size . " new Record created in the database";
+    }
+
+    /**
+     * This method generate and saves fake user plans in to the database.
+     */
+    public function handelUserPlanSeed($size)
+    {
+        $faker = Factory::create();
+
+        $new_record = [];
+
+        for ($i=0; $i < $size; $i++) {
+            UserPlan::create([
+                'user_id' => rand(1, 10),
+                'plan_id' => rand(1, 10),
+            ]);
+        }
+
+        return $size . " new Record created in the database";
+    }
+
+    /**
+     * This method generate and saves fake user plans in to the database.
+     */
+    public function handelWorkoutSeed()
+    {
+        $count_work_out = count(Workout::all());
+
+        if($count_work_out < 1){
+            
+            Workout::create(['title' => "Push Up"]);
+            Workout::create(['title' => "Set Up"]);
+            Workout::create(['title' => "Running"]);
+            Workout::create(['title' => "Pull Up"]);
+            Workout::create(['title' => "Squad"]);
+            Workout::create(['title' => "Yoga"]);
+
+            return "new Record created in the database";
+        }
     }
 }

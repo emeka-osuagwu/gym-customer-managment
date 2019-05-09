@@ -68,7 +68,7 @@ class CustomerController
 
 	public function showCustomers()
 	{
-		return $customer = $this->customerService->getAll();
+		$customers = $this->customerService->getAll();
 		
 		return $this->twig->render('customers.twig', [
 		    'customers' => $customers
@@ -162,7 +162,7 @@ class CustomerController
 			"status" => 200
 		]);
 	}
-
+	
 	/**
 	 * handle deleteCustomer s request
 	 * @param int id
