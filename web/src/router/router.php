@@ -13,6 +13,8 @@ Router::csrfVerifier(new CsrfVerifier());
 Router::group(['namespace' => '\Emeka\Http\Controllers', 'exceptionHandler' => CustomExceptionHandler::class], function () {
 
 	Router::get('/', 'CustomerController@index');
+	Router::get('/customers', 'CustomerController@showCustomers');
+	Router::get('/customer/{id}', 'CustomerController@showCustomer');
 
 	// API Routes
 	// Router::group(['prefix' => '/api', 'middleware' => ApiVerification::class], function () {

@@ -1,0 +1,55 @@
+<html>
+	<head>
+		{{ include('common/headers.twig') }}
+	</head>
+	<body>
+		{{ include('common/main_nav.twig') }}
+		<div class="container dashboard_con bg-light">
+			<section class="quick_create_user_section">
+
+				<h3 class="section_header">Quick Create Customer {{asset('views/public/js/app.js')}}</h3>
+
+                <div class="row create_plan_con">
+                    <div class="col-12 col-md-12">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">First Name</label>
+                                <input type="text" class="form-control" id="first_name" value="{{customer.first_name}}" placeholder="First Name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Last Name</label>
+                                <input type="test" class="form-control" id="last_name" value="{{customer.last_name}}" placeholder="Last Name">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="inputEmail4">Email</label>
+                                <input type="text" class="form-control" id="email" value="{{customer.email}}" placeholder="Email">
+                            </div>
+                        </div>
+                    
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputZip">Location</label>
+                                <input type="text" value="{{customer.location}}" class="form-control" id="location">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState">Gender</label>
+                                <select id="sex" class="form-control">
+                                    <option value="{{customer.sex}}">Choose...</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button onclick="updateUser({{customer.id}})" type="button" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+
+			</section>
+		</div>
+	</body>
+</html>

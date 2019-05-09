@@ -1,0 +1,51 @@
+<html>
+	<head>
+		{{ include('common/headers.twig') }}
+	</head>
+	<body>
+		{{ include('common/main_nav.twig') }}
+		<div class="container dashboard_con bg-light">
+			
+			<section class="table_section">
+				<h3 class="section_header">Customers</h3>
+
+				<table class="table">
+					{# <caption>List of users</caption> #}
+					<thead>
+						<tr>
+							<th scope="col">First Name</th>
+							<th scope="col">Last Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Location</th>
+							<th scope="col">Sex</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in customers %}
+							<tr>
+								<td>{{user.first_name}}</td>
+								<td>{{user.last_name}}</td>
+								<td>{{user.email}}</td>
+								<td>{{user.location}}</td>
+								<td>{{user.sex}}</td>
+								<td>
+									<div class="dropdown">
+										<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Action
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="/customer/{{user.id}}">View</a>
+											<a class="dropdown-item" href="#">Edit</a>
+											<a class="dropdown-item" href="#">Delete</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</section>
+		</div>
+	</body>
+</html>

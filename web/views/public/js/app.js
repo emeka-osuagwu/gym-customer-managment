@@ -1,3 +1,5 @@
+// alert('fvmndfjh')
+
 var item, 
 
 sex,
@@ -21,14 +23,12 @@ $(document).ready(function() {
 /*
 # Delete Episode Function
 */
-function createUser ()
+function createUser()
 {
 	var
 	url = "/api/customer",
 	method = "POST",
 	functionName = arguments.callee.name;
-
-	console.log(email.value)
 
 	if 
 	(
@@ -66,6 +66,51 @@ function createUser ()
 	}
 }
 
+/*
+# Delete Episode Function
+*/
+function updateUser(customer_id)
+{
+	var
+	url = "/api/customer/" + customer_id,
+	method = "POST",
+	functionName = arguments.callee.name;
+
+	if 
+	(
+		!email.value || email.value == null ||
+		!address.value || address.value == null ||
+		!last_name.value || last_name.value == null ||
+		!first_name.value || first_name.value == null ||
+		!sex.value || sex.value == null
+	)
+	{
+		swal("Oops", "All field are required", "error");
+	}
+	else if(email.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) == null) 
+	{
+		swal("Oops", "Email is not a valid email", "error");
+	}
+	else {
+
+	  	var data =
+	    {
+	        url: url,
+	        method: method,
+	        parameter:
+	        {
+	          	email: email.value,
+	          	last_name: last_name.value,
+	          	first_name: first_name.value,
+	          	location: address.value,
+	          	sex: sex.value
+	        }
+	    }
+
+		ajaxCall(data, functionName)
+
+	}
+}
 
 /*
 # Ajax

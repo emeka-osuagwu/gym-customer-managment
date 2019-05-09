@@ -66,6 +66,24 @@ class CustomerController
 		]);
 	}
 
+	public function showCustomers()
+	{
+		return $customer = $this->customerService->getAll();
+		
+		return $this->twig->render('customers.twig', [
+		    'customers' => $customers
+		]);
+	}
+
+	public function showCustomer($id)
+	{
+		$customer = $this->customerService->findBy('id', $id)->get()->first();
+		
+		return $this->twig->render('view_customer.twig', [
+		    'customer' => $customer
+		]);
+	}
+
 	/**
 	 * handle createCustomer s request
 	 * @return json|null

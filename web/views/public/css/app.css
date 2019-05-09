@@ -37,3 +37,7 @@ h3.section_header {
 section.quick_create_user_section {
      padding: 67px; 
 }
+
+section.table_section {
+    overflow: scroll;
+}
