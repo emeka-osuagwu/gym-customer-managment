@@ -64,4 +64,51 @@ class ValidationService
 
 		return $validation;
 	}
+
+
+	/**
+	 * createPlanValidation
+	 */
+	public function createPlanValidation($data)
+	{
+		$validation = $this->validator->make($data, [
+		    'name' => 'required|alpha',
+		    'description' => 'required|alpha',
+		    'type' => 'required|alpha',
+		]);
+
+		$validation->validate();
+		return $validation;
+	}
+
+	/**
+	 * updateCustomerValidation
+	 */
+	public function updatePlanValidation($data)
+	{
+		$validation = $this->validator->make($data, [
+		    'id' => 'required|numeric',
+		    'name' => 'required_if:name|alpha',
+		    'descriotion' => 'required_if:descriotion|alpha',
+		    'type' => 'required_if:type|alpha',
+		]);
+
+		$validation->validate();
+
+		return $validation;
+	}
+
+	/**
+	 */
+	public function getPlanValidation($data)
+	{
+		$validation = $this->validator->make($data, [
+		    'id' => 'required|numeric',
+		]);
+
+		$validation->validate();
+
+		return $validation;
+	}
+
 }

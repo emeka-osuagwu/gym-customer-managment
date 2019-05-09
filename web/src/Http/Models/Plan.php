@@ -9,7 +9,6 @@ class Plan extends Model
     protected $fillable = [
     	'name',
     	'type',
-    	'image',
     	'description',
     ];
 }

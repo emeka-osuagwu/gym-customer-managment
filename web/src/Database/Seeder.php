@@ -45,7 +45,6 @@ class Seeder
             Plan::create([
                 'name' => $faker->email,
                 'description' => $faker->name,
-                'image' => $faker->imageUrl,
                 'type' => rand(0, 1) ? "beginner" : "expert",
             ]);
         }

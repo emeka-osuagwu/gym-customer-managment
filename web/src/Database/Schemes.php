@@ -65,8 +65,7 @@ class Schemes
                 $table->increments('id');
                 $table->string('name')->unique();
                 $table->string('description');
-                $table->string('image')->nullable();
-                $table->enum('type', ['beginner', 'expert', 'intermediate'])->default('beginner');
+                $table->string('type')->default('beginner');
                 $table->timestamps();
             });
             

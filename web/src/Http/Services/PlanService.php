@@ -15,4 +15,31 @@ class PlanService
 	{
 		return Plan::all();
 	}
+
+	/**
+	 * fetch recipe by dynamic {field} and {value} from the database
+	 * @param string $field
+	 * @param string | int $value
+	 * @return json|null
+	 */
+	public function findBy($field, $value)
+	{
+		return Plan::where($field, $value);
+	}
+
+	public function createPlan($data)
+	{
+		return Plan::create($data);
+	}
+
+	/**
+	 * update recipe record in the database
+	 * @param array data
+	 * @return json|null
+	 */
+	public function updatePlan($data)
+	{
+		Plan::where('id', $data['id'])->update($data);
+		return $this->findBy('id', $data['id'])->get();
+	}
 }
