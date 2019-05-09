@@ -37,11 +37,9 @@ class ValidationService
 		    'first_name' => 'required|alpha',
 		    'last_name' => 'required|alpha',
 		    'sex' => 'required|alpha',
-		    'phone_number' => 'required|numeric',
 		    'location' => 'required|alpha_spaces',
-		    'image' => 'required|url',
 		]);
-		
+
 		$validation->validate();
 		return $validation;
 	}

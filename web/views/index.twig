@@ -4,8 +4,16 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Standalone Form Component</title>
-	<link rel="stylesheet" type="text/css" href="views/public/css/app.css">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="views/public/css/app.css">
+	<link rel="stylesheet" type="text/css" href="views/public/css/view_port.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+	<script src="views/public/js/jquery.js"></script>
+	<script src="views/public/js/app.js" type="text/javascript"></script>
+
 </head>
 <body>
 
@@ -16,9 +24,20 @@
 </nav>
 
 <div class="container dashboard_con bg-light">
-	{{ include('common/dashboard_status.twig', {'customers': customers, 'plans': plans}) }}
+
+	<section>
+		<h3 class="section_header">Statistics</h3>
+		{{ include('common/dashboard_status.twig', {'customers': customers, 'plans': plans}) }}
+	</section>
+
+	<section class="quick_create_user_section">
+		<h3 class="section_header">Quick Create Customer</h3>
+		{{ include('common/create_plan.twig', {'customers': customers, 'plans': plans}) }}
+	</section>
+
+
 </div>
 
 </body>
-	<script src="views/public/js/app.js" type="text/javascript"></script>
+
 </html>

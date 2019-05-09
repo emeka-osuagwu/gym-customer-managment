@@ -3,14 +3,18 @@
 .container.dashboard_con {
     /*height: 400px;*/
     margin-top: 20px;
+    padding-top: 30px;
 }
 
 .counter_con_item {
     background: #4A90E2;
-    margin: 60px auto;
     height: 150px;
     text-align: center;
     color: #fff;
+}
+
+.col-12.col-md-4.counter_con_item {
+    border-left: #fff solid;
 }
 
 span.counter_con_item_count {
@@ -22,4 +26,14 @@ span.counter_con_item_count {
 span.counter_con_item_count_label {
     font-size: 30px;
     line-height: normal;
+}
+
+h3.section_header {
+    text-align: center;
+    color: #F79136;
+    margin-bottom: 30px;
+}
+
+section.quick_create_user_section {
+     padding: 67px; 
 }
