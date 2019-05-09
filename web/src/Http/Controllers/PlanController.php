@@ -116,7 +116,6 @@ class PlanController
 
     public function apiPlanAddWorkout($id)
     {
-
         // validate deleteCustomer 
 		$validation = $this->validationService->getPlanValidation(['id' => $id]);
 
@@ -130,8 +129,6 @@ class PlanController
 		}
 
         $request = input()->all(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
-
-		$request_data = [];
 
         // validate deleteCustomer 
 		$validation = $this->validationService->addPlanWorkoutValidation(array_merge(input()->all()));

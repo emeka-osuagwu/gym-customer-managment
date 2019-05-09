@@ -129,6 +129,21 @@ class ValidationService
 
 		return $validation;
 	}
+
+	/**
+	 * updateCustomerValidation
+	 */
+	public function customerAddplanValidation($data)
+	{
+		$validation = $this->validator->make($data, [
+		    'id' => 'required|numeric',
+		    'plan_id' => 'required|numeric',
+		]);
+
+		$validation->validate();
+
+		return $validation;
+	}
 	
 
 }

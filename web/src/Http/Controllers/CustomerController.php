@@ -162,7 +162,7 @@ class CustomerController
 			"status" => 200
 		]);
 	}
-	
+
 	/**
 	 * handle deleteCustomer s request
 	 * @param int id
@@ -279,5 +279,86 @@ class CustomerController
 			"status" => 200
 		]);
 	}
+
+	/**
+	 * handle updateCustomer  request
+	 * @return json|null
+	 * @param int $id
+	 */
+	public function apiCustomerAddPlan($id)
+	{		
+		// validate deleteCustomer 
+		$validation = $this->validationService->customerAddplanValidation(['id' => $id, 'plan_id' => (int) input()->all(['plan_id'])]);
+
+		// check if validation fails
+		if ($validation->fails()) {
+		    $errors = $validation->errors();
+		    return response()->httpCode(400)->json([
+		    	"status" => 400,
+		    	"data" => $errors->firstOfAll() 
+		    ]);
+		}
+
+		$request = input()->all();
+
+		$plan = $this->planService->findBy('id', $id);
+		$customer = $this->customerService->findBy('id', $id);
+		
+		// check ifCustomer  exist in the database
+		if ($customer->count() < 1 || $plan->count() < 1) {
+			return response()->httpCode(400)->json([
+				"message" => "cant find record",
+				"status" => 400,
+			]);
+		}
+
+		// $customer->attach()
+
+		// if (isset($request['email']) && isset($request['email']) != null) {
+		// 	$request_data['email'] = $request['email'];
+		// }
+
+		// if (isset($request['first_name']) && isset($request['first_name']) != null) {
+		// 	$request_data['first_name'] = $request['first_name'];
+		// }
+
+		// if (isset($request['last_name']) && isset($request['last_name']) != null) {
+		// 	$request_data['last_name'] = $request['last_name'];
+		// }
+
+		// if (isset($request['sex']) && isset($request['sex']) != null) {
+		// 	$request_data['sex'] = $request['sex'];
+		// }
+
+		// if (isset($request['phone_number']) && isset($request['phone_number']) != null) {
+		// 	$request_data['phone_number'] = $request['phone_number'];
+		// }
+
+		// if (isset($request['location']) && isset($request['location']) != null) {
+		// 	$request_data['location'] = $request['location'];
+		// }
+
+		// if (isset($request['image']) && isset($request['image']) != null) {
+		// 	$request_data['image'] = $request['image'];
+		// }
+
+		// $request_data['id'] = $id;
+
+		// $validation = $this->validationService->updateCustomerValidation($request_data);
+
+		// if ($validation->fails()) {
+		//     $errors = $validation->errors();
+		//     return response()->httpCode(400)->json([
+		//     	"status" => 400,
+		//     	"data" => $errors->firstOfAll() 
+		//     ]);
+		// }
+
+		return response()->httpCode(200)->json([
+			"data" => $customer,
+			"status" => 200
+		]);
+	}
+
 
 }

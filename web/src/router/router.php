@@ -24,6 +24,7 @@ Router::group(['namespace' => '\Emeka\Http\Controllers', 'exceptionHandler' => C
 		Router::get('/customer/{id}', 'CustomerController@customer');
 		Router::post('/customer', 'CustomerController@create');
 		Router::post('/customer/{id}', 'CustomerController@update');
+		Router::post('/customer/{id}/plan', 'CustomerController@apiCustomerAddPlan');
 		Router::delete('/customer/{id}', 'CustomerController@delete');
 		
 		Router::get('/plan', 'planController@apiGetPlans');
