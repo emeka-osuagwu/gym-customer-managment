@@ -23,11 +23,11 @@ interface CustomerServiceInterface
 	 * @param array $data
 	 * @return json|null
 	 */
-	public function createRecipe($data);
+	public function createCustomer($data);
 	/**
 	 * update customer record in the database
 	 * @param array data
 	 * @return json|null
 	 */
-	public function updateRecipe($data);
+	public function updateCustomer($data);
 }

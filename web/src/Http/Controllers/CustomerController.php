@@ -90,14 +90,6 @@ class CustomerController
 	 */
 	public function create()
 	{
-		// if (!request()->authenticated) {
-		// 	return response()->httpCode(200)->json([
-		// 		"status" => 400000,
-		// 		"message" => "authentication required",
-		// 		"auth" => request()->authenticated
-		// 	]);
-		// }
-
 		// validate deleteCustomer 
 		$validation = $this->validationService->createCustomerValidation(input()->all());
 
@@ -122,7 +114,7 @@ class CustomerController
 		}	
 
 		return response()->httpCode(200)->json([
-			"data" => $this->customerService->createRecipe(input()->all()),
+			"data" => $this->customerService->createCustomer(input()->all()),
 			"status" => 200
 		]);
 	}
@@ -275,7 +267,7 @@ class CustomerController
 		}
 
 		return response()->httpCode(200)->json([
-			"data" => $this->customerService->updateRecipe($request_data),
+			"data" => $this->customerService->updateCustomer($request_data),
 			"status" => 200
 		]);
 	}
@@ -310,52 +302,12 @@ class CustomerController
 				"message" => "cant find record",
 				"status" => 400,
 			]);
-		}
+		}	
 
-		// $customer->attach()
-
-		// if (isset($request['email']) && isset($request['email']) != null) {
-		// 	$request_data['email'] = $request['email'];
-		// }
-
-		// if (isset($request['first_name']) && isset($request['first_name']) != null) {
-		// 	$request_data['first_name'] = $request['first_name'];
-		// }
-
-		// if (isset($request['last_name']) && isset($request['last_name']) != null) {
-		// 	$request_data['last_name'] = $request['last_name'];
-		// }
-
-		// if (isset($request['sex']) && isset($request['sex']) != null) {
-		// 	$request_data['sex'] = $request['sex'];
-		// }
-
-		// if (isset($request['phone_number']) && isset($request['phone_number']) != null) {
-		// 	$request_data['phone_number'] = $request['phone_number'];
-		// }
-
-		// if (isset($request['location']) && isset($request['location']) != null) {
-		// 	$request_data['location'] = $request['location'];
-		// }
-
-		// if (isset($request['image']) && isset($request['image']) != null) {
-		// 	$request_data['image'] = $request['image'];
-		// }
-
-		// $request_data['id'] = $id;
-
-		// $validation = $this->validationService->updateCustomerValidation($request_data);
-
-		// if ($validation->fails()) {
-		//     $errors = $validation->errors();
-		//     return response()->httpCode(400)->json([
-		//     	"status" => 400,
-		//     	"data" => $errors->firstOfAll() 
-		//     ]);
-		// }
+		$add_plan = $this->customerService->addPlan($customer->first()->id, 1000);
 
 		return response()->httpCode(200)->json([
-			"data" => $customer,
+			"data" => $add_plan,
 			"status" => 200
 		]);
 	}

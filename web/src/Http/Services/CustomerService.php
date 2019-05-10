@@ -3,12 +3,13 @@
 namespace Emeka\Http\Services;
 
 use Emeka\Http\Models\User;
+use Emeka\Http\Models\UserPlan;
 use Emeka\Http\Services\Contracts\CustomerServiceInterface;
 
 class CustomerService implements CustomerServiceInterface
 {
 	/**
-	 * fetch and return all recipe from database
+	 * fetch and return all customer from database
 	 * @return json|null
 	 */
 	public function getAll()
@@ -17,7 +18,7 @@ class CustomerService implements CustomerServiceInterface
 	}
 
 	/**
-	 * fetch recipe by dynamic {field} and {value} from the database
+	 * fetch customer by dynamic {field} and {value} from the database
 	 * @param string $field
 	 * @param string | int $value
 	 * @return json|null
@@ -28,11 +29,11 @@ class CustomerService implements CustomerServiceInterface
 	}
 
 	/**
-	 * insert new recipe into the database
+	 * insert new customer into the database
 	 * @param array $data
 	 * @return json|null
 	 */
-	public function createRecipe($data)
+	public function createCustomer($data)
 	{
 		return User::create($data);
 	}
@@ -42,9 +43,24 @@ class CustomerService implements CustomerServiceInterface
 	 * @param array data
 	 * @return json|null
 	 */
-	public function updateRecipe($data)
+	public function updateCustomer($data)
 	{
 		User::where('id', $data['id'])->update($data);
 		return $this->findBy('id', $data['id'])->get();
+	}
+
+	public function addPlan($user_id, $plan_id)
+	{
+		$find_user_plan = UserPlan::where(['user_id' => $user_id, 'plan_id' => $plan_id])->get();
+		
+		if(!$find_user_plan->count()){
+			return UserPlan::create([
+				'user_id' => $user_id,
+				'plan_id' => $plan_id
+			]);
+		}
+		else{
+			return "already added";
+		}
 	}
 }
