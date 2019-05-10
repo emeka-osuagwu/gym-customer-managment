@@ -155,6 +155,7 @@ function ajaxLogic (response, functionName)
 		switch (functionName)
         {
           case "createUser" : createUserSuccessAlert(response); break;
+          case "updateUser" : updateUserSuccessAlert(response); break;
         }
 	}
 }
@@ -186,13 +187,17 @@ function userAlreadyExistsError()
 	swal("Oops", "User Already Exists.", "error");
 }
 
+function updateUserSuccessAlert()
+{	
+	swal("Record Updated", "Customer Updated", "success");
+}
+
 /*
 ####################################################################
 # activateEpisodeErrorAlert() Message
 */
 function activateEpisodeErrorAlert ()
 {
-
 	swal("Hmmmm", "This episode does not exist ", "error");
 }
 
