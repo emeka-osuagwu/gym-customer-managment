@@ -102,12 +102,13 @@ class Schemes
      */
     public function createUserPlanTable()
     {
-        if (! $this->capsule->schema()->hasTable('user_plan')) 
+        if (! $this->capsule->schema()->hasTable('plan_users')) 
         {
-            $this->capsule->schema()->create('user_plan', function ($table) {
-                $table->primary(['plan_id', 'user_id']); 
+            $this->capsule->schema()->create('plan_users', function ($table) {
+                $table->increments(['user_id', 'plan_id']); 
                 $table->integer('user_id')->unsigned();;
                 $table->integer('plan_id')->unsigned();
+                $table->timestamps();
             });
             
             return "user plan table created";
@@ -123,8 +124,8 @@ class Schemes
      */
     public function dropUserPlanTable()
     {
-        if ($this->capsule->schema()->hasTable('user_plan')){
-            $this->capsule->schema()->drop('user_plan');
+        if ($this->capsule->schema()->hasTable('plan_users')){
+            $this->capsule->schema()->drop('plan_users');
         }
 
         return "user plan table dropped";

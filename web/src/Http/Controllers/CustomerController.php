@@ -77,10 +77,12 @@ class CustomerController
 
 	public function showCustomer($id)
 	{
+		$plans = $this->planService->getAll();
 		$customer = $this->customerService->findBy('id', $id)->get()->first();
-		
+
 		return $this->twig->render('view_customer.twig', [
-		    'customer' => $customer
+			'customer' => $customer,
+			'plans' => $plans
 		]);
 	}
 
@@ -205,58 +207,11 @@ class CustomerController
 	 */
 	public function update($id)
 	{
-		if (!request()->authenticated) {
-			return response()->httpCode(200)->json([
-				"status" => 400,
-				"message" => "authentication required",
-				"auth" => request()->authenticated
-			]);
-		}
-		
-		$request = input()->all();
+		$request = input()->all(['first_name', 'last_name', 'email', 'sex', 'location']);
 
-		$request_data = [];
+		$request['id'] = $id;
 
-
-		// check ifCustomer  exist in the database
-		if ($this->customerService->findBy('id', $id)->count() < 1) {
-			return response()->httpCode(400)->json([
-				"message" => "cant find record",
-				"status" => 400,
-			]);
-		}	
-
-		if (isset($request['email']) && isset($request['email']) != null) {
-			$request_data['email'] = $request['email'];
-		}
-
-		if (isset($request['first_name']) && isset($request['first_name']) != null) {
-			$request_data['first_name'] = $request['first_name'];
-		}
-
-		if (isset($request['last_name']) && isset($request['last_name']) != null) {
-			$request_data['last_name'] = $request['last_name'];
-		}
-
-		if (isset($request['sex']) && isset($request['sex']) != null) {
-			$request_data['sex'] = $request['sex'];
-		}
-
-		if (isset($request['phone_number']) && isset($request['phone_number']) != null) {
-			$request_data['phone_number'] = $request['phone_number'];
-		}
-
-		if (isset($request['location']) && isset($request['location']) != null) {
-			$request_data['location'] = $request['location'];
-		}
-
-		if (isset($request['image']) && isset($request['image']) != null) {
-			$request_data['image'] = $request['image'];
-		}
-
-		$request_data['id'] = $id;
-
-		$validation = $this->validationService->updateCustomerValidation($request_data);
+		$validation = $this->validationService->updateCustomerValidation($request);
 
 		if ($validation->fails()) {
 		    $errors = $validation->errors();
@@ -266,8 +221,26 @@ class CustomerController
 		    ]);
 		}
 
+		$customer = $this->customerService->findBy('id', $id);
+
+		// check ifCustomer  exist in the database
+		if ($customer->count() < 1) {
+			return response()->httpCode(400)->json([
+				"message" => "cant find record",
+				"status" => 400,
+			]);
+		}	
+
+		$new_customer = [];
+
+		foreach($request as $key => $value){
+            if (isset($request[$key]) && $request[$key] != '') {
+                $new_customer[$key] = $request[$key];
+            }
+		}
+
 		return response()->httpCode(200)->json([
-			"data" => $this->customerService->updateCustomer($request_data),
+			"data" => $this->customerService->updateCustomer($new_customer),
 			"status" => 200
 		]);
 	}
@@ -311,6 +284,4 @@ class CustomerController
 			"status" => 200
 		]);
 	}
-
-
 }

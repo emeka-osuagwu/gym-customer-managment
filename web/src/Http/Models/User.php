@@ -3,6 +3,7 @@
 namespace Emeka\Http\Models;
 
 use Emeka\Http\Models\UserPlan;
+use Emeka\Http\Models\Plan;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
@@ -17,6 +18,6 @@ class User extends Model
 
 	public function plans()
 	{
-		return $this->hasMany(UserPlan::class);
+		return $this->belongsToMany(Plan::class);
 	}
 }

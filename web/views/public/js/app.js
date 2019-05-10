@@ -103,12 +103,12 @@ function updateUser(customer_id)
 	          	last_name: last_name.value,
 	          	first_name: first_name.value,
 	          	location: address.value,
-	          	sex: sex.value
+				sex: sex.value
+				  
 	        }
 	    }
 
 		ajaxCall(data, functionName)
-
 	}
 }
 

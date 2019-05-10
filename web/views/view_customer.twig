@@ -4,10 +4,10 @@
 	</head>
 	<body>
 		{{ include('common/main_nav.twig') }}
-		<div class="container dashboard_con bg-light">
-			<section class="quick_create_user_section">
+		<div class="container dashboard_con">
+			<section class="quick_create_user_section bg-light">
 
-				<h3 class="section_header">Quick Create Customer</h3>
+				<h3 class="section_header">Customer Info</h3>
 
                 <div class="row create_plan_con">
                     <div class="col-12 col-md-12">
@@ -50,6 +50,67 @@
                 </div>
 
 			</section>
+
+     
+
+            <section class="bg-light quick_create_user_section">
+				<h3 class="section_header">Customer Plan {{customers}}</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for user in customer['plans'] %}
+							<tr>
+								<td>{{user.name}}</td>
+								<td>
+									<div class="dropdown">
+										<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Action
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="/customer/{{user.id}}">View</a>
+											<a class="dropdown-item" href="#">Edit</a>
+											<a class="dropdown-item" href="#">Delete</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+                           {% else %}
+                            <li><em>no user has no plan</em></li>
+						{% endfor %}
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">Add Plan</button>
+            </section>
+
+
+             <section class="bg-light quick_create_user_section">
+                <h3 class="section_header">Asign Plan to Customer</h3>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 assign_plan_div">
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                {% for plan in plans %}
+                                    <option value="{{plan.id}}">{{plan.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12 user_asign_plan_button_con">
+                            <button type="submit" class="user_asign_plan_button btn btn-primary">Assign</button>
+                        </div>
+                    </div>
+
+                </form>
+
+
+                </section>
 		</div>
 	</body>
 </html>

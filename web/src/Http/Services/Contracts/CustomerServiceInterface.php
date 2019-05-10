@@ -24,10 +24,13 @@ interface CustomerServiceInterface
 	 * @return json|null
 	 */
 	public function createCustomer($data);
+	
 	/**
 	 * update customer record in the database
 	 * @param array data
 	 * @return json|null
 	 */
 	public function updateCustomer($data);
+
+	public function addPlan($user_id, $plan_id);
 }

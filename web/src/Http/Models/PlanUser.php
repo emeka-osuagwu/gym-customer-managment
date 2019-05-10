@@ -4,9 +4,9 @@ namespace Emeka\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserPlan extends Model
+class PlanUser extends Model
 {
-    protected $table = "user_plan";
+    // protected $table = "plan_user";
     
     protected $fillable = [
     	'user_id',

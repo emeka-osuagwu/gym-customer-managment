@@ -34,10 +34,10 @@ class ValidationService
 	{
 		$validation = $this->validator->make($data, [
 		    'email' => 'required|email',
-		    'first_name' => 'required|alpha',
-		    'last_name' => 'required|alpha',
-		    'sex' => 'required|alpha',
-		    'location' => 'required|alpha_spaces',
+		    'first_name' => 'required|alpha_spaces',
+		    'last_name' => 'required|alpha_spaces',
+		    'sex' => 'required|alpha_spaces',
+		    'location' => 'required',
 		]);
 
 		$validation->validate();
@@ -52,12 +52,10 @@ class ValidationService
 		$validation = $this->validator->make($data, [
 		    'id' => 'required|numeric',
 		    'email' => 'required_if:email|email',
-		    'first_name' => 'required_if:first_name|alpha',
-		    'last_name' => 'required_if:last_name|alpha',
-		    'sex' => 'required_if:sex|alpha',
-		    'phone_number' => 'required_if:phone_number|numeric',
-		    'location' => 'required_if:location|alpha_spaces',
-		    'image' => 'required_if:image|url',
+		    'first_name' => 'required_if:first_name|alpha_spaces',
+		    'last_name' => 'required_if:last_name|alpha_spaces',
+		    'sex' => 'required_if:sex|alpha_spaces',
+		    'location' => 'required_if:location',
 		]);
 
 		$validation->validate();
@@ -72,7 +70,7 @@ class ValidationService
 	{
 		$validation = $this->validator->make($data, [
 		    'name' => 'required|alpha',
-		    'description' => 'required|alpha',
+		    'description' => 'required|alpha_spaces',
 		    'type' => 'required|alpha',
 		]);
 
@@ -87,8 +85,8 @@ class ValidationService
 	{
 		$validation = $this->validator->make($data, [
 		    'id' => 'required|numeric',
-		    'name' => 'required_if:name|alpha',
-		    'descriotion' => 'required_if:descriotion|alpha',
+		    'name' => 'required_if:name|alpha_spaces',
+		    'descriotion' => 'required_if:descriotion|alpha_spaces',
 		    'type' => 'required_if:type|alpha',
 		]);
 

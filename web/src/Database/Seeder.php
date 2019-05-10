@@ -5,7 +5,7 @@ namespace Emeka\Database;
 use Faker\Factory;
 use Emeka\Http\Models\User;
 use Emeka\Http\Models\Plan;
-use Emeka\Http\Models\UserPlan;
+use Emeka\Http\Models\PlanUser;
 use Emeka\Http\Models\Workout;
 
 class Seeder
@@ -62,7 +62,7 @@ class Seeder
         $new_record = [];
 
         for ($i=0; $i < $size; $i++) {
-            UserPlan::create([
+            PlanUser::create([
                 'user_id' => rand(1, 10),
                 'plan_id' => rand(1, 10),
             ]);

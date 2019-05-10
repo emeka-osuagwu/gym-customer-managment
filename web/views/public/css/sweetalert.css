@@ -35,20 +35,9 @@ h3.section_header {
 }
 
 section.quick_create_user_section {
-     padding: 67px;
-     margin-bottom: 20px;
+     padding: 67px; 
 }
 
 section.table_section {
     overflow: scroll;
-}
-
-.form-group.col-md-6.assign_plan_div {
-    margin: 0px auto;
-    text-align: center;
-}
-
-.user_asign_plan_button_con {
-    text-align: center;
-    padding-top: 10px;
 }

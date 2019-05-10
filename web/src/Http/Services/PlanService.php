@@ -42,18 +42,4 @@ class PlanService
 		Plan::where('id', $data['id'])->update($data);
 		return $this->findBy('id', $data['id'])->get();
 	}
-
-	/**
-	 * update recipe record in the database
-	 * @param array data
-	 * @return json|null
-	 */
-	public function bulkInsertWorkout($data)
-	{
-		foreach($data as $workout){
-			return $workout;
-		}
-		// Plan::where('id', $data['id'])->update($data);
-		// return $this->findBy('id', $data['id'])->get();
-	}
 }
