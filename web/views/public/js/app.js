@@ -8,6 +8,11 @@ address,
 last_name,
 first_name,
 
+plan_name,
+plan_type,
+plan_description,
+monday_workout,
+
 assign_plan_selector,
 
 customer_stat_counter;
@@ -20,6 +25,11 @@ $(document).ready(function() {
 	address = document.getElementById('location')
 	last_name = document.getElementById('last_name')
 	first_name = document.getElementById('first_name')
+	
+	plan_name = document.getElementById('plan_name')
+	plan_type = document.getElementById('plan_type')
+	plan_description = document.getElementById('plan_description')
+	monday_workout = document.getElementById('monday_workout')
 	
 	assign_plan_selector = document.getElementById('assign_plan_selector')
 })
@@ -155,6 +165,66 @@ function updateUser(customer_id)
 }
 
 /*
+# updateUser Function
+*/
+function updatePlan(plan_id)
+{
+	if 
+	(
+		!plan_name.value || plan_name.value == null ||
+		!plan_description.value || plan_description.value == null ||
+		!plan_type.value || plan_type.value == null
+	)
+	{
+		swal("Oops", "All field are required", "error");
+	}
+	else {
+
+	  	var data =
+	    {
+	        url: "/api/plan/" + plan_id,
+	        method: "POST",
+	        parameter:
+	        {
+	          	name: plan_name.value,
+	          	type: plan_type.value,
+	          	description: plan_description.value,
+	        }
+	    }
+
+		ajaxCall(data, arguments.callee.name)
+	}
+}
+
+/*
+# updateUser Function
+*/
+function updatePlanWorkout(plan_id)
+{
+	if 
+	(
+		!monday_workout.value || monday_workout.value == null
+	)
+	{
+		swal("Oops", "All field are required", "error");
+	}
+	else {
+
+	  	var data =
+	    {
+	        url: "/api/plan/" + plan_id + "/workout",
+	        method: "POST",
+	        parameter:
+	        {
+	          	monday: monday_workout.value
+	        }
+	    }
+
+		ajaxCall(data, arguments.callee.name)
+	}
+}
+
+/*
 # assignPlan
 */
 function assignPlan(customer_id)
@@ -224,6 +294,8 @@ function ajaxLogic (response, functionName)
           case "assignPlan" : assignPlanSuccessAlert(response); break;
           case "deleteUser" : deleteUserSuccessAlert(response); break;
           case "deletePlan" : deletePlanSuccessAlert(response); break;
+          case "updatePlan" : updatePlanSuccessAlert(response); break;
+          case "updatePlanWorkout" : updatePlanSuccessAlert(response); break;
         }
 	}
 }
@@ -273,6 +345,11 @@ function deleteUserSuccessAlert()
 function deletePlanSuccessAlert()
 {	
 	swal("Record Deleted", "Plan Delete", "success");
+}
+
+function updatePlanSuccessAlert()
+{	
+	swal("Record Updated", "Plan Updated", "success");
 }
 
 /*
