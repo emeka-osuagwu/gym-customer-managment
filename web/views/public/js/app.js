@@ -71,6 +71,44 @@ function createUser()
 }
 
 /*
+# createUser Function
+*/
+function deleteUser(event, user_id)
+{
+  	var data =
+    {
+        url: "/api/customer/" + user_id,
+        method: "DELETE",
+        parameter:
+        {
+        }
+    }
+
+	ajaxCall(data, arguments.callee.name)
+	
+	$(event.target).parent().closest('tr').remove()
+}
+
+/*
+# createUser Function
+*/
+function deletePlan(event, plan_id)
+{
+  	var data =
+    {
+        url: "/api/plan/" + plan_id,
+        method: "DELETE",
+        parameter:
+        {
+        }
+    }
+
+	ajaxCall(data, arguments.callee.name)
+	
+	$(event.target).parent().closest('tr').remove()
+}
+
+/*
 # updateUser Function
 */
 function updateUser(customer_id)
@@ -138,7 +176,6 @@ function assignPlan(customer_id)
 	
 		ajaxCall(data, arguments.callee.name)
 	}
-
 }
 
 /*
@@ -160,7 +197,6 @@ function ajaxCall ( data, functionName)
 		},
 	});
 }
-
 
 function ajaxLogic (response, functionName)
 {
@@ -186,6 +222,8 @@ function ajaxLogic (response, functionName)
           case "createUser" : createUserSuccessAlert(response); break;
           case "updateUser" : updateUserSuccessAlert(response); break;
           case "assignPlan" : assignPlanSuccessAlert(response); break;
+          case "deleteUser" : deleteUserSuccessAlert(response); break;
+          case "deletePlan" : deletePlanSuccessAlert(response); break;
         }
 	}
 }
@@ -225,6 +263,16 @@ function updateUserSuccessAlert()
 function assignPlanSuccessAlert()
 {	
 	swal("Record Added", "Plan Assigned", "success");
+}
+
+function deleteUserSuccessAlert()
+{	
+	swal("Record Deleted", "Customer Delete", "success");
+}
+
+function deletePlanSuccessAlert()
+{	
+	swal("Record Deleted", "Plan Delete", "success");
 }
 
 /*

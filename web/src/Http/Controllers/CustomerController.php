@@ -171,13 +171,6 @@ class CustomerController
 	 */
 	public function delete($id)
 	{	
-		if (!request()->authenticated) {
-			return response()->httpCode(200)->json([
-				"status" => 400,
-				"message" => "authentication required",
-				"auth" => request()->authenticated
-			]);
-		}
 
 		// validate deleteCustomer 
 		$validation = $this->validationService->getCustomerValidation(['id' => $id]);

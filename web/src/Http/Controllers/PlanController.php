@@ -247,16 +247,16 @@ class PlanController
 		if ($validation->fails()) {
 		    $errors = $validation->errors();
 		    return response()->httpCode(400)->json([
-		    	"status" => 400,
+		    	"status" => 200,
 		    	"data" => $errors->firstOfAll() 
 		    ]);
 		}
 
 		// check if record exist
-		if ($this->customerService->findBy('id', $id)->count() < 1) {
+		if ($this->planService->findBy('id', $id)->count() < 1) {
 			return response()->httpCode(400)->json([
 				"message" => "record not round",
-				"status" => 400
+				"status" => 200
 			]);
 		}
 

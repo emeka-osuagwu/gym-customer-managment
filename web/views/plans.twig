@@ -30,9 +30,8 @@
 											Action
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="/plan/{{user.id}}">View</a>
-											<a class="dropdown-item" href="#">Edit</a>
-											<a class="dropdown-item" href="#">Delete</a>
+											<a class="dropdown-item" href="/plan/{{user.id}}">View / Edit</a>
+											<a style="cursor: pointer" class="dropdown-item" onclick="deletePlan(event, {{user.id}})">Delete</a>
 										</div>
 									</div>
 								</td>
