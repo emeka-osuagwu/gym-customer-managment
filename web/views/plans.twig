@@ -1,0 +1,46 @@
+<html>
+	<head>
+		{{ include('common/headers.twig') }}
+	</head>
+	<body>
+		{{ include('common/main_nav.twig') }}
+		<div class="container dashboard_con bg-light">
+			
+			<section class="table_section">
+				<h3 class="section_header">Plans</h3>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">Description</th>
+							<th scope="col">Type</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in plans %}
+							<tr>
+								<td>{{user.name}}</td>
+								<td>{{user.description}}</td>
+								<td>{{user.type}}</td>
+								<td>
+									<div class="dropdown">
+										<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Action
+										</button>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a class="dropdown-item" href="/plan/{{user.id}}">View</a>
+											<a class="dropdown-item" href="#">Edit</a>
+											<a class="dropdown-item" href="#">Delete</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</section>
+		</div>
+	</body>
+</html>

@@ -6,6 +6,7 @@ use Twig_Environment;
 use Emeka\Http\Services\ValidationService;
 use Emeka\Http\Services\Contracts\CustomerServiceInterface;
 use Emeka\Http\Services\PlanService;
+use Emeka\Http\Services\WorkoutService;
 
 /**
  * Class CustomerController
@@ -24,6 +25,8 @@ class PlanController
 	 * @var RecipeService
 	 */
 	protected $customerService;
+	
+	protected $workoutService;
 
 	/**
 	 * Validation Service
@@ -41,12 +44,14 @@ class PlanController
 	(
 		PlanService $planService,
 		Twig_Environment $twig,
+		WorkoutService $workoutService,
 		ValidationService $validationService,
 		CustomerServiceInterface $customerService
 	)
 	{
 		$this->twig = $twig;
 		$this->planService = $planService;
+		$this->workoutService = $workoutService;
 		$this->customerService = $customerService;
 		$this->validationService = $validationService;
 	}
@@ -66,12 +71,23 @@ class PlanController
 		]);
 	}
 
-	public function showCustomers()
+	public function showPlan($id)
 	{
-		return $customer = $this->customerService->getAll();
+		$plan = $this->planService->findBy('id', $id)->get()->first();
+		$workouts = $this->workoutService->getAll();
 		
-		return $this->twig->render('customers.twig', [
-		    'customers' => $customers
+		return $this->twig->render('plan.twig', [
+		    'plan' => $plan,
+		    'workouts' => $workouts
+		]);
+    }
+
+	public function showPlans()
+	{
+		$plans = $this->planService->getAll();
+		
+		return $this->twig->render('plans.twig', [
+		    'plans' => $plans
 		]);
     }
     
@@ -142,7 +158,7 @@ class PlanController
 		    ]);
         }
 
-        $plan = $this->planService->findBy('id', $id)->first();
+        $plan = $this->planService->findBy('id', $id);
 
         // check if plan exist in the database
 		if ($plan->count() < 1) {
@@ -151,6 +167,8 @@ class PlanController
 				"status" => 400,
 			]);
         }	
+
+        $plan = $plan->first();
         
         foreach($request as $key => $value){
             if (isset($request[$key]) && $request[$key] != '') {

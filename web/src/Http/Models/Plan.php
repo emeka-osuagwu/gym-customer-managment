@@ -4,6 +4,7 @@ namespace Emeka\Http\Models;
 
 use Emeka\Http\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Plan extends Model
 {

@@ -3,7 +3,7 @@
 namespace Emeka\Http\Services;
 
 use Emeka\Http\Models\User;
-use Emeka\Http\Models\UserPlan;
+use Emeka\Http\Models\PlanUser;
 use Emeka\Http\Services\Contracts\CustomerServiceInterface;
 
 class CustomerService implements CustomerServiceInterface
@@ -51,16 +51,16 @@ class CustomerService implements CustomerServiceInterface
 
 	public function addPlan($user_id, $plan_id)
 	{
-		$find_user_plan = UserPlan::where(['user_id' => $user_id, 'plan_id' => $plan_id])->get();
+		$find_user_plan = PlanUser::where(['user_id' => $user_id, 'plan_id' => $plan_id])->get();
 		
 		if(!$find_user_plan->count()){
-			return UserPlan::create([
+			return PlanUser::create([
 				'user_id' => $user_id,
 				'plan_id' => $plan_id
 			]);
 		}
 		else{
-			return "already added";
+			return $find_user_plan;
 		}
 	}
 }

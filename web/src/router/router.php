@@ -15,12 +15,13 @@ Router::group(['namespace' => '\Emeka\Http\Controllers', 'exceptionHandler' => C
 	Router::get('/', 'CustomerController@index');
 	Router::get('/customers', 'CustomerController@showCustomers');
 	Router::get('/customer/{id}', 'CustomerController@showCustomer');
+	
+	Router::get('/plans', 'PlanController@showPlans');
+	Router::get('/plan/{id}', 'PlanController@showPlan');
 
 	// API Routes
-	// Router::group(['prefix' => '/api', 'middleware' => ApiVerification::class], function () {
 	Router::group(['prefix' => '/api'], function () {
-		Router::post('/login', 'AuthController@login');
-		Router::get('/', 'CustomerController@customers');
+		Router::get('/', 'CustomerController@apiGetCustomers');
 		Router::get('/customer/{id}', 'CustomerController@customer');
 		Router::post('/customer', 'CustomerController@create');
 		Router::post('/customer/{id}', 'CustomerController@update');

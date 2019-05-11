@@ -8,6 +8,8 @@ address,
 last_name,
 first_name,
 
+assign_plan_selector,
+
 customer_stat_counter;
 
 $(document).ready(function() {
@@ -18,10 +20,12 @@ $(document).ready(function() {
 	address = document.getElementById('location')
 	last_name = document.getElementById('last_name')
 	first_name = document.getElementById('first_name')
+	
+	assign_plan_selector = document.getElementById('assign_plan_selector')
 })
 
 /*
-# Delete Episode Function
+# createUser Function
 */
 function createUser()
 {
@@ -67,7 +71,7 @@ function createUser()
 }
 
 /*
-# Delete Episode Function
+# updateUser Function
 */
 function updateUser(customer_id)
 {
@@ -110,6 +114,31 @@ function updateUser(customer_id)
 
 		ajaxCall(data, functionName)
 	}
+}
+
+/*
+# assignPlan
+*/
+function assignPlan(customer_id)
+{
+
+	if(assign_plan_selector.value == ""){
+		swal("Oops", "You need to select a plan first", "error");
+	}
+	else{
+		var data =
+		{
+			url: "/api/customer/" + customer_id + '/plan',
+			method: "POST",
+			parameter:
+			{
+				plan_id: assign_plan_selector.value,
+			}
+		}
+	
+		ajaxCall(data, arguments.callee.name)
+	}
+
 }
 
 /*
@@ -156,6 +185,7 @@ function ajaxLogic (response, functionName)
         {
           case "createUser" : createUserSuccessAlert(response); break;
           case "updateUser" : updateUserSuccessAlert(response); break;
+          case "assignPlan" : assignPlanSuccessAlert(response); break;
         }
 	}
 }
@@ -190,6 +220,11 @@ function userAlreadyExistsError()
 function updateUserSuccessAlert()
 {	
 	swal("Record Updated", "Customer Updated", "success");
+}
+
+function assignPlanSuccessAlert()
+{	
+	swal("Record Added", "Plan Assigned", "success");
 }
 
 /*

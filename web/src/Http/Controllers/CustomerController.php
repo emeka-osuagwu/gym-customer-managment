@@ -6,6 +6,7 @@ use Twig_Environment;
 use Emeka\Http\Services\ValidationService;
 use Emeka\Http\Services\Contracts\CustomerServiceInterface;
 use Emeka\Http\Services\PlanService;
+use Emeka\Http\Services\WorkoutService;
 
 /**
  * Class CustomerController
@@ -25,6 +26,8 @@ class CustomerController
 	 */
 	protected $customerService;
 
+	protected $workoutService;
+
 	/**
 	 * Validation Service
 	 * @var RecipeService
@@ -41,6 +44,7 @@ class CustomerController
 	(
 		PlanService $planService,
 		Twig_Environment $twig,
+		WorkoutService $workoutService,
 		ValidationService $validationService,
 		CustomerServiceInterface $customerService
 	)
@@ -48,6 +52,7 @@ class CustomerController
 		$this->twig = $twig;
 		$this->planService = $planService;
 		$this->customerService = $customerService;
+		$this->workoutService = $workoutService;
 		$this->validationService = $validationService;
 	}
 
@@ -59,10 +64,12 @@ class CustomerController
 	{
 		$plans = $this->planService->getAll();
 		$customers = $this->customerService->getAll();
+		$workouts = $this->workoutService->getAll();
 
 		return $this->twig->render('index.twig', [
 		    'customers' => $customers,
-		    'plans' => $plans
+		    'plans' => $plans,
+		    'workouts' => $workouts
 		]);
 	}
 
@@ -125,7 +132,7 @@ class CustomerController
 	 * handle get recipes request
 	 * @return json|null
 	 */
-	public function customers()
+	public function apiGetCustomers()
 	{
 		return response()->httpCode(200)->json([
 			"data" => $this->customerService->getAll(),
@@ -264,9 +271,7 @@ class CustomerController
 		    ]);
 		}
 
-		$request = input()->all();
-
-		$plan = $this->planService->findBy('id', $id);
+		$plan = $this->planService->findBy('id', input()->all(['plan_id']));
 		$customer = $this->customerService->findBy('id', $id);
 		
 		// check ifCustomer  exist in the database
@@ -277,7 +282,7 @@ class CustomerController
 			]);
 		}	
 
-		$add_plan = $this->customerService->addPlan($customer->first()->id, 1000);
+		$add_plan = $this->customerService->addPlan($customer->first()->id, $plan->first()->id);
 
 		return response()->httpCode(200)->json([
 			"data" => $add_plan,

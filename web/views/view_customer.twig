@@ -88,29 +88,25 @@
                 <button class="btn btn-primary">Add Plan</button>
             </section>
 
-
-             <section class="bg-light quick_create_user_section">
+            <section class="bg-light quick_create_user_section">
                 <h3 class="section_header">Asign Plan to Customer</h3>
 
-                <form>
+                <div>
                     <div class="form-row">
                         <div class="form-group col-md-6 assign_plan_div">
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
+                            <select id="assign_plan_selector" class="form-control">
+                                <option value="" selected>Choose...</option>
                                 {% for plan in plans %}
                                     <option value="{{plan.id}}">{{plan.name}}</option>
                                 {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-12 user_asign_plan_button_con">
-                            <button  class="user_asign_plan_button btn btn-primary">Assign</button>
+                            <button type="submit" onclick="assignPlan({{customer.id}})"  class="user_asign_plan_button btn btn-primary">Assign</button>
                         </div>
                     </div>
-
-                </form>
-
-
-                </section>
+                </div>
+            </section>
 		</div>
 	</body>
 </html>

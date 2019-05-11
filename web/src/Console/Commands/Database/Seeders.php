@@ -36,10 +36,10 @@ class Seeders extends Command
 	        '<info> ===============</>',
         ));
         
-        $output->writeln(array(
-	        '<info>' . getenv("APP_NAME") . ': ' .$seeder->handelUserPlanSeed(10) . '</>',
-	        '<info> ===============</>',
-        ));
+        // $output->writeln(array(
+	       //  '<info>' . getenv("APP_NAME") . ': ' .$seeder->handelUserPlanSeed(10) . '</>',
+	       //  '<info> ===============</>',
+        // ));
         
         $output->writeln(array(
 	        '<info>' . getenv("APP_NAME") . ': ' .$seeder->handelWorkoutSeed() . '</>',

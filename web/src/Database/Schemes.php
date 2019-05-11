@@ -106,7 +106,7 @@ class Schemes
         {
             $this->capsule->schema()->create('plan_users', function ($table) {
                 $table->increments(['user_id', 'plan_id']); 
-                $table->integer('user_id')->unsigned();;
+                $table->integer('user_id')->unsigned();
                 $table->integer('plan_id')->unsigned();
                 $table->timestamps();
             });

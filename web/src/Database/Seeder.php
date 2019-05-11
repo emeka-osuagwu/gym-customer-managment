@@ -76,16 +76,16 @@ class Seeder
      */
     public function handelWorkoutSeed()
     {
-        $count_work_out = count(Workout::all());
+        $count_work_out = Workout::all();
 
-        if($count_work_out < 1){
-            
             Workout::create(['title' => "Push Up"]);
             Workout::create(['title' => "Set Up"]);
             Workout::create(['title' => "Running"]);
             Workout::create(['title' => "Pull Up"]);
             Workout::create(['title' => "Squad"]);
             Workout::create(['title' => "Yoga"]);
+        if($count_work_out->count() < 1){
+            
 
             return "new Record created in the database";
         }
