@@ -38,26 +38,17 @@ The goal of the project is to create a dashboard for managing users and user pla
 ```
 
 #### Step 3 -> setup database migrates with the virtuagym console app:
-- run ```php console ``` to see list of command avalable
+- run ```php console ``` to see list of command available
 - run ```php console virtuagym:migrate``` to create database tables
 - run ```php console virtuagym:seed``` to seed database tables with test data. (this is optional)
 - run ```php console virtuagym:drop-table``` to drop all database tables
 
 
+#### Step 3 -> setup database migrates with the virtuagym console app:
+- goto ```http://localhost:8080/ ``` on your browser to use the app
 
 
-#### Run Test:
-  - while in the docker dev ennviromennt run ```./vendor/bin/phpunit``` 
-
-#### Get Started:
-- Open [postman](https://www.getpostman.com/apps). or any api client to test the api functionality
-- Import [postman api collection](https://www.getpostman.com/collections/b5f7da2dc2d9f65f3cde). or any api client to test the api functionality
-- Visit http://localhost to see the contents of the web container and develop your application.
-
-#### Console App:
-- while in the docker dev ennviromennt run ```php console``` to get the list of commands
-- run ```php console kontist:migrate``` to run database migration
-- run ```php console kontist:drop-table``` to drop  Drop database table
-- run ```php console kontist:seed``` to seed database table
-
-API documentation => https://documenter.getpostman.com/view/1035891/RztppnBu
+#### Testing:
+  - run ```./vendor/bin/phpunit``` 
+  
+# Thanks
