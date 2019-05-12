@@ -13,7 +13,7 @@ The goal of the project is to create a dashboard for managing users and user pla
 - Command Line developer tool
 
 
-#### 4 Step setup:
+#### Step 1 -> clone and startup the app:
 - clone repo
 - cd into folder and run ```composer install```
 - run ```docker exec  -it kontist_api_server bash``` to get into the dev ennviromennt
