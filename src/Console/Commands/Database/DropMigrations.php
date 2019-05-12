@@ -16,7 +16,7 @@ class DropMigrations extends Command
 	*/
 	public function configure()
 	{
-		$this->setName('kontist:drop-table')->setDescription('Drop database table');
+		$this->setName('virtuagym:drop-table')->setDescription('Drop database table');
 	}
 
 	/**

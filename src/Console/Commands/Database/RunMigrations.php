@@ -16,7 +16,7 @@ class RunMigrations extends Command
 	*/
 	public function configure()
 	{
-		$this->setName('kontist:migrate')->setDescription('Create database migration');
+		$this->setName('virtuagym:migrate')->setDescription('Create database migration');
 	}
 
 	/**

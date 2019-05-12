@@ -16,7 +16,7 @@ class Seeders extends Command
 	*/
 	public function configure()
 	{
-		$this->setName('kontist:seed')->setDescription('Seed database');
+		$this->setName('virtuagym:seed')->setDescription('Seed database');
 	}
 
 	/**
