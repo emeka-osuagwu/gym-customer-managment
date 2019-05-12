@@ -19,7 +19,7 @@ The goal of the project is to create a dashboard for managing users and user pla
 - create your ```.env```, you can see example of this in the ```.env.example file```
 - run ``` php -S localhost:8080 ``` to start the app
 
-#### Step 2 -> set up your env file:
+#### Step 2 -> setup your env file:
 
 ```
 - DATABASE_DRIVER=YOUR_DB_DRIVE
@@ -37,10 +37,15 @@ The goal of the project is to create a dashboard for managing users and user pla
 - SENDGRID_API_KEY=ENTER_YOUR_SEND_GRID_API_KEY
 ```
 
+#### Step 3 -> setup database migrates with the virtuagym console app:
+- run ```php console ``` to see list of command avalable
+- run ```php console virtuagym:migrate``` to create database tables
+- run ```php console virtuagym:seed``` to seed database tables with test data. (this is optional)
+- run ```php console virtuagym:drop-table``` to drop all database tables
 
-- run ```docker exec  -it kontist_api_server bash``` to get into the dev ennviromennt
-- cd into ```/web``` and run ```composer install``` to pull dependencies
-- run ```php console kontist:migrate``` to run database migration
+
+
+
 #### Run Test:
   - while in the docker dev ennviromennt run ```./vendor/bin/phpunit``` 
 
