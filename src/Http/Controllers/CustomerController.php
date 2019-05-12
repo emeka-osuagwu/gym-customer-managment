@@ -297,20 +297,25 @@ class CustomerController
 		$plan_action = $customer->first()->plans()->toggle($plan->first()->id);
 		$customer->first()->plans;
 
-		// dd($customer->first()->email);
 
 		if($plan_action['attached']){
-			// $this->mailService->send
-			// (
-			// 	$customer->first()->email, 
-			// 	$customer->first()->first_name + " " + $customer->first()->last_name, 
-			// 	"Plan Added", 
-			// 	"a plan has been added to your account"
-			// );
+			$this->mailService->send
+			(
+				$customer->first()->email, 
+				$customer->first()->first_name . " " . $customer->first()->last_name, 
+				"Plan Added", 
+				"Plan <strong>" .  $plan->first()->name . "</strong> has been added to your account"
+			);
 		}
 
 		if($plan_action['detached']){
-			// echo "removed";
+			$this->mailService->send
+			(
+				$customer->first()->email, 
+				$customer->first()->first_name . " " . $customer->first()->last_name, 
+				"Plan Removed", 
+				"Plan <strong>" .  $plan->first()->name . "</strong> has been removed from your account"
+			);
 		}
 
 		return response()->httpCode(200)->json([
