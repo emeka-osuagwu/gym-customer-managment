@@ -53,5 +53,6 @@ class DatabaseConnection
         if (!getenv('APP_ENV')){
             $dotenv->load();
         }
+        
      }
 }
