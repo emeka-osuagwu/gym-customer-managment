@@ -1,16 +1,15 @@
-## Kontist Customer API Test
+## VIrtuagym Customer Plan Management
 
 
 ### Summary
-Create an api service with CRUD opporation for to manage kontist customers
+The goal of the project is to create a dashboard for managing users and user plans
 
 ### Features
-- JWT auth
-- Token based request authentication
-- Database persistence
+- Responsive Dashboard
 - Request Validation
 - Json API response
 - TDD
+- Email Notification
 
 
 #### 4 Step setup:
