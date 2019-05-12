@@ -49,10 +49,6 @@ class DatabaseConnection
      public static function loadEnv()
      {
         $dotenv = new Dotenv(__DIR__.'/../../');
-        
-        if (!getenv('APP_ENV')){
-            $dotenv->load();
-        }
-        
+        $dotenv->load();
      }
 }
