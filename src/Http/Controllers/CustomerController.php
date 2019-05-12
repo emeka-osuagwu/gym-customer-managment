@@ -292,8 +292,6 @@ class CustomerController
 			]);
 		}	
 
-		// $customer->first()->plans()->toggle($plan->first()->id);
-
 		$plan_action = $customer->first()->plans()->toggle($plan->first()->id);
 		$customer->first()->plans;
 

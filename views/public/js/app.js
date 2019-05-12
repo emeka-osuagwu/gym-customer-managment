@@ -251,6 +251,45 @@ function updatePlanWorkout(plan_id)
 }
 
 /*
+# updateUser Function
+*/
+function createPlan()
+{
+	if 
+	(
+		!plan_name.value || plan_name.value == null ||
+		!plan_description.value || plan_description.value == null ||
+		!plan_type.value || plan_type.value == null
+	)
+	{
+		swal("Oops", "All field are required", "error");
+	}
+	else {
+
+	  	var data =
+	    {
+	        url: "/api/plan",
+	        method: "POST",
+	        parameter:
+	        {
+	        	name: plan_name.value,
+	        	type: plan_type.value,
+	        	description: plan_description.value,
+	          	monday: monday_workout.value,
+	          	tuesday: tuesday_workout.value,
+	          	wednesday: wednesday_workout.value,
+	          	thursday: thursday_workout.value,
+	          	friday: friday_workout.value,
+	          	saturday: saturday_workout.value,
+	          	sunday: sunday_workout.value,
+	        }
+	    }
+
+		ajaxCall(data, arguments.callee.name)
+	}
+}
+
+/*
 # assignPlan
 */
 function assignPlan(event, customer_id)
@@ -343,6 +382,7 @@ function ajaxLogic (response, functionName)
           case "updatePlan" : updatePlanSuccessAlert(response); break;
           case "updatePlanWorkout" : updatePlanSuccessAlert(response); break;
           case "removePlan" : removePlanSuccessAlert(response); break;
+          case "createPlan" : createPlanSuccessAlert(response); break;
         }
 	}
 }
@@ -377,6 +417,21 @@ function userAlreadyExistsError()
 function updateUserSuccessAlert()
 {	
 	swal("Record Updated", "Customer Updated", "success");
+}
+
+function createPlanSuccessAlert()
+{	
+	swal("Record Added", "Plan Updated", "success");
+		plan_name.value = ""
+		plan_type.value = ""
+		plan_description.value = ""
+	  	monday.value = ""
+	  	tuesday.value = ""
+	  	wednesday.value = ""
+	  	thursday.value = ""
+	  	friday.value = ""
+	  	saturday.value = ""
+	  	sunday.value = ""
 }
 
 function assignPlanSuccessAlert(response)

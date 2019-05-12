@@ -71,6 +71,20 @@ class PlanController
 		]);
 	}
 
+	/**
+	 * handle createPlan request
+	 * @return json|null
+	 */
+	public function createPlan()
+	{
+		$workouts = $this->workoutService->getAll();
+		$customers = $this->customerService->getAll();
+
+		return $this->twig->render('create_plan.twig', [
+		    'workouts' => $workouts
+		]);
+	}
+
 	public function showPlan($id)
 	{
 		$plan = $this->planService->findBy('id', $id)->get()->first();

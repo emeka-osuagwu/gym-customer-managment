@@ -17,6 +17,7 @@ Router::group(['namespace' => '\Emeka\Http\Controllers', 'exceptionHandler' => C
 	Router::get('/customer/{id}', 'CustomerController@showCustomer');
 	
 	Router::get('/plans', 'PlanController@showPlans');
+	Router::get('/plan/create', 'PlanController@createPlan');
 	Router::get('/plan/{id}', 'PlanController@showPlan');
 
 	// API Routes
