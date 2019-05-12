@@ -7,14 +7,15 @@ The goal of the project is to create a dashboard for managing users and user pla
 ### Features
 - Responsive Dashboard
 - Request Validation
-- Json API response
+- Json REST API response
 - TDD
 - Email Notification
+- Command Line developer tool
 
 
 #### 4 Step setup:
 - clone repo
-- cd into folder and run ```docker-compose up```
+- cd into folder and run ```composer install```
 - run ```docker exec  -it kontist_api_server bash``` to get into the dev ennviromennt
 - cd into ```/web``` and run ```composer install``` to pull dependencies
 - run ```php console kontist:migrate``` to run database migration
