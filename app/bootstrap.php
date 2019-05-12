@@ -19,6 +19,12 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $capsule = new Capsule();
 new DatabaseConnection($capsule);
 
+use Emeka\Database\Seeder;
+
+$seeder = new Seeder;
+
+$seeder->handelWorkoutSeed();
+
 /*
 |-----------------------------------
 | Services Namespaces

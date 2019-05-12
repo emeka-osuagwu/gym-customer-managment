@@ -76,11 +76,13 @@ class Seeder
      */
     public function handelWorkoutSeed()
     {
-        Workout::create(['title' => "Push Up"]);
-        Workout::create(['title' => "Set Up"]);
-        Workout::create(['title' => "Running"]);
-        Workout::create(['title' => "Pull Up"]);
-        Workout::create(['title' => "Squad"]);
-        Workout::create(['title' => "Yoga"]);  
+        if(Workout::all()->count() < 1){
+            Workout::create(['title' => "Push Up"]);
+            Workout::create(['title' => "Set Up"]);
+            Workout::create(['title' => "Running"]);
+            Workout::create(['title' => "Pull Up"]);
+            Workout::create(['title' => "Squad"]);
+            Workout::create(['title' => "Yoga"]);  
+        }
     }
 }
