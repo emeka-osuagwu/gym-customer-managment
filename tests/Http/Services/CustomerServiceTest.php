@@ -3,13 +3,12 @@
 namespace Emeka\Test\Http\Services;
 
 use Faker\Factory;
-use Emeka\Http\Models\Customer;
+use Emeka\Http\Models\User;
 use PHPUnit\Framework\TestCase;
 use Test\Http\Config\DBConnection;
 use Emeka\Http\Services\CustomerService;
 use Emeka\Database\DatabaseConnection;
 use Illuminate\Database\Capsule\Manager;
-use Emeka\Database\Schemes;
 
 class CustomerServiceTest extends TestCase
 {
@@ -25,16 +24,22 @@ class CustomerServiceTest extends TestCase
      */
     private $customerService;
 
+    /**
+     * DBConnection
+     * @var dbConnection
+     */
+    private $dbConnection;
+
     public function setUp()
     {
         parent::setUp();
 
-        $this->database = new DBConnection();
-        $this->database->getConnection();
-        $this->database->setUpDatabase();
-        
         $this->faker = Factory::create();
-        $this->customerService = new CustomerService();
+        $this->customerService = new CustomerService;
+        
+        $this->dbConnection = new DBConnection;
+        $this->dbConnection->getConnection();
+        $this->dbConnection->setUpDatabase();
     }
 
     /**
@@ -66,12 +71,11 @@ class CustomerServiceTest extends TestCase
             'first_name' => $this->faker->firstNameMale,
             'last_name' => $this->faker->firstNameMale,
             'phone_number' => $this->faker->e164PhoneNumber,
-            'image' => $this->faker->imageUrl,
             'location' => $this->faker->city,
             'sex' => rand(0, 1) ? "male" : "female",
         ];
 
-        $this->customerService->createRecipe($new_customer);
+        $this->customerService->createCustomer($new_customer);
         
         $customer = $this->customerService->findBy('email', $new_customer['email']);
         
@@ -114,6 +118,6 @@ class CustomerServiceTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-        Customer::truncate();
+        $this->dbConnection->dropAllTables();
     }
 }

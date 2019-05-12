@@ -48,19 +48,4 @@ class CustomerService implements CustomerServiceInterface
 		User::where('id', $data['id'])->update($data);
 		return $this->findBy('id', $data['id'])->get();
 	}
-
-	public function addPlan($user_id, $plan_id)
-	{
-		$find_user_plan = PlanUser::where(['user_id' => $user_id, 'plan_id' => $plan_id])->get();
-		
-		if(!$find_user_plan->count()){
-			return PlanUser::create([
-				'user_id' => $user_id,
-				'plan_id' => $plan_id
-			]);
-		}
-		else{
-			return $find_user_plan;
-		}
-	}
 }

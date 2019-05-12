@@ -31,6 +31,4 @@ interface CustomerServiceInterface
 	 * @return json|null
 	 */
 	public function updateCustomer($data);
-
-	public function addPlan($user_id, $plan_id);
 }

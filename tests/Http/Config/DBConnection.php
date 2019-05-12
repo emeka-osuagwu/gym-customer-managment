@@ -2,8 +2,8 @@
 
 namespace Test\Http\Config;
 
+use Emeka\Http\Models\User;
 use Emeka\Database\Schemes;
-use Emeka\Http\Models\Customer;
 use Emeka\Database\DatabaseConnection;
 use Illuminate\Database\Capsule\Manager;
 
@@ -22,10 +22,7 @@ class DBConnection
 	 */
 	public function setUpDatabase()
 	{
-		$schemes = new Schemes;
-		$schemes->createRequestTable();
-
-	    Customer::create([
+	    User::create([
 	        'email' => 'emekaosuagwu@hotmail.com',
 	        'first_name' => 'Osuagwu',
 	        'last_name' => 'Emeka',
@@ -35,7 +32,7 @@ class DBConnection
 	        'sex' => 'Male',
 	    ]);
 
-	    Customer::create([
+	    User::create([
 	        'email' => 'mustafa.ozyurt@hotmail.com',
 	        'first_name' => 'Mustafa',
 	        'last_name' => 'Ozyurt',
@@ -44,6 +41,11 @@ class DBConnection
 	        'location' => 'Berlin, Germany',
 	        'sex' => 'Male',
 	    ]);
+	}
+
+	public function dropAllTables($value='')
+	{
+		User::truncate();
 	}
 	
 }

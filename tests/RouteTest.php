@@ -3,11 +3,11 @@
 namespace Test;
 
 use Faker\Factory;
+use Emeka\Http\Models\User;
 use PHPUnit\Framework\TestCase;
-use Emeka\Http\Models\Customer;
-use Test\Http\Config\DBConnection;
-use Emeka\Http\Services\JWTService;
 use Test\Http\Config\RequestService;
+use Emeka\Database\DatabaseConnection;
+use Illuminate\Database\Capsule\Manager;
 
 class RouteTest extends TestCase
 {
@@ -16,12 +16,6 @@ class RouteTest extends TestCase
 	 * @var Faker\Factory
 	 */
 	public $faker;
-
-	/**
-	 * $token
-	 * @var Emeka\Http\Services\JWTService
-	 */
-	public $token;
 
 	/**
 	 * $request
@@ -34,18 +28,47 @@ class RouteTest extends TestCase
 	    parent::setUp();
 	    $this->faker = Factory::create();
 	    $this->request = new RequestService;
-	    	
-	    $jwtService = new JWTService;
-	    $this->token = $jwtService->generate();
+
+	    new DatabaseConnection(new Manager());
+
+	    $this->setUpDatabase();
 	}
 
 	/**
-	 * Test index route returns welcome message
+	 * Create records in the database
 	 */
-	public function testIndexRoute()
+	public function setUpDatabase()
 	{
-		$response = $this->request->handel('GET', 'http://localhost', []);
-	    $this->assertSame("welcome to kontist customer api 😋", $response['message']);
+	    User::create([
+	        'email' => 'emekaosuagwu@hotmail.com',
+	        'first_name' => 'Osuagwu',
+	        'last_name' => 'Emeka',
+	        'phone_number' => "09095685594",
+	        'image' => 'https://github.com/rakit/validation',
+	        'location' => 'Lagos, Nigeria',
+	        'sex' => 'Male',
+	    ]);
+
+	    User::create([
+	        'email' => 'mustafa.ozyurt@hotmail.com',
+	        'first_name' => 'Mustafa',
+	        'last_name' => 'Ozyurt',
+	        'phone_number' => "09095685594",
+	        'image' => 'https://github.com/rakit/validation',
+	        'location' => 'Berlin, Germany',
+	        'sex' => 'Male',
+	    ]);
+	}
+
+	/**
+	 * Test get all customer endpoint
+	 */
+	public function testGetAllCustomersRoute()
+	{
+		$response = $this->request->handel('GET', 'http://localhost:8080/api', []);
+	    $this->assertSame(200, $response['status']);
+	    $this->assertIsArray($response['data']);
+	    $this->assertArrayHasKey('email', $response['data'][0]);
 	}
 
 	/**
@@ -53,27 +76,8 @@ class RouteTest extends TestCase
 	 */
 	public function testGetErrorOnInvalidRoute()
 	{
-		$response = $this->request->handel('GET', 'http://localhost/something-route', []);
+		$response = $this->request->handel('GET', 'http://localhost:8080/something-route', []);
 	    $this->assertSame(404, $response['code']);
-	}
-
-	/**
-	 * Test get all customer endpoint
-	 */
-	public function testGetRecipes()
-	{
-		$response = $this->request->handel('GET', 'http://localhost/api', []);
-	    $this->assertSame(200, $response['status']);
-	}
-
-	/**
-	 * Test create endpoint requires authentication
-	 */
-	public function testProtectedRoute()
-	{
-		$response = $this->request->handel('POST', 'http://localhost/api/customer', []);
-	    $this->assertSame(400, $response['status']);
-	    $this->assertSame("authentication required", $response['message']);
 	}
 
 	/**
@@ -86,38 +90,25 @@ class RouteTest extends TestCase
 			'first_name' => $this->faker->firstNameMale,
 			'last_name' => $this->faker->firstNameMale,
 			'phone_number' => $this->faker->e164PhoneNumber,
-			'image' => $this->faker->imageUrl,
-			'location' => $this->faker->city,
 			'sex' => rand(0, 1) ? "male" : "female",
+			'location' => "nigaria",
 		];
 
 		$data = [
-			'headers' => [
-				'authorization' => $this->token,
-			],
 			'form_params' => $customer
 		];
 
-		$response = $this->request->handel('POST', 'http://localhost/api/customer', $data);
-		
+		$response = $this->request->handel('POST', 'http://localhost:8080/api/customer', $data);
+
 	    $this->assertSame(200, $response['status']);
 	    $this->assertArrayHasKey('email', $response['data']);
 	}
 
-	/**
-	 * Test get customer endpoint
-	 */
-	public function testGetRecipe()
+	// *
+	//  * Test get customer endpoint
+	public function testGetCustomer()
 	{
-
-		$data = [
-			'headers' => [
-				'authorization' => $this->token,
-			],
-			'form_params' => []
-		];
-
-		$response = $this->request->handel('GET', 'http://localhost/api/customer/1', $data);
+		$response = $this->request->handel('GET', 'http://localhost:8080/api/customer/1', []);
 	    $this->assertSame(200, $response['status']);
 		$this->assertArrayHasKey('email', $response['data'][0]);
 	}
@@ -125,7 +116,7 @@ class RouteTest extends TestCase
 	/**
 	 * Test update customer endpoint
 	 */
-	public function testUpdateRecipe()
+	public function testUpdateCustomer()
 	{
 		$customer = [
 			'first_name' => 'randomname'
@@ -133,12 +124,9 @@ class RouteTest extends TestCase
 
 		$data = [
 		    'form_params' => $customer,
-		    'headers' => [
-		    	'authorization' => $this->token,
-		    ],
 		];
 
-		$response = $this->request->handel('POST', 'http://localhost/api/customer/1', $data);
+		$response = $this->request->handel('POST', 'http://localhost:8080/api/customer/1', $data);
 	    
 	    $this->assertSame(200, $response['status']);
 	    $this->assertSame($customer['first_name'], $response['data'][0]['first_name']);
@@ -147,29 +135,16 @@ class RouteTest extends TestCase
 	/**
 	 * Test delete custom endpoint
 	 */
-	public function testDeleteRecipe()
+	public function testDeleteCustomer()
 	{
-		$data = [
-		    'headers' => [
-		    	'authorization' => $this->token,
-		    ]
-		];
-
-		$response = $this->request->handel('DELETE', 'http://localhost/api/customer/1', $data);
+		$response = $this->request->handel('DELETE', 'http://localhost:8080/api/customer/1', []);
 	   
 	    $this->assertSame(200, $response['status']);
 	    $this->assertSame("record deleted", $response['message']);
 	}
-
-	/**
-	 * Test rate recipe endpoint
-	 */
-	public function testMiniLoginRecipe()
+	
+	protected function tearDown()
 	{
-		$response = $this->request->handel('POST', 'http://localhost/api/login', []);
-	    $this->assertSame(200, $response['status']);
-	    $this->assertSame("mini auth successful 😋", $response['message']);
+	    User::truncate();
 	}
-
-
 }

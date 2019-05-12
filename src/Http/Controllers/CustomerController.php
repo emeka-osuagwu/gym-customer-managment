@@ -3,10 +3,11 @@
 namespace Emeka\Http\Controllers;
 
 use Twig_Environment;
+use Emeka\Http\Services\PlanService;
+use Emeka\Http\Services\MailService;
+use Emeka\Http\Services\WorkoutService;
 use Emeka\Http\Services\ValidationService;
 use Emeka\Http\Services\Contracts\CustomerServiceInterface;
-use Emeka\Http\Services\PlanService;
-use Emeka\Http\Services\WorkoutService;
 
 /**
  * Class CustomerController
@@ -21,11 +22,21 @@ class CustomerController
 	private $twig;
 
 	/**
+	 * MailService Service
+	 * @var mailService
+	 */
+	protected $mailService;
+
+	/**
 	 * RecipeService Service
 	 * @var RecipeService
 	 */
 	protected $customerService;
 
+	/**
+	 * WorkoutService Service
+	 * @var $workoutService
+	 */
 	protected $workoutService;
 
 	/**
@@ -42,17 +53,19 @@ class CustomerController
 
 	function __construct
 	(
+		MailService $mailService,
 		PlanService $planService,
-		Twig_Environment $twig,
 		WorkoutService $workoutService,
+		Twig_Environment $twig,
 		ValidationService $validationService,
 		CustomerServiceInterface $customerService
 	)
 	{
 		$this->twig = $twig;
+		$this->mailService = $mailService;
 		$this->planService = $planService;
-		$this->customerService = $customerService;
 		$this->workoutService = $workoutService;
+		$this->customerService = $customerService;
 		$this->validationService = $validationService;
 	}
 
@@ -62,7 +75,6 @@ class CustomerController
 	 */
 	public function index()
 	{
-
 		$plans = $this->planService->getAll();
 		$customers = $this->customerService->getAll();
 		$workouts = $this->workoutService->getAll();
@@ -280,8 +292,26 @@ class CustomerController
 			]);
 		}	
 
-		$customer->first()->plans()->toggle($plan->first()->id);
+		// $customer->first()->plans()->toggle($plan->first()->id);
+
+		$plan_action = $customer->first()->plans()->toggle($plan->first()->id);
 		$customer->first()->plans;
+
+		// dd($customer->first()->email);
+
+		if($plan_action['attached']){
+			// $this->mailService->send
+			// (
+			// 	$customer->first()->email, 
+			// 	$customer->first()->first_name + " " + $customer->first()->last_name, 
+			// 	"Plan Added", 
+			// 	"a plan has been added to your account"
+			// );
+		}
+
+		if($plan_action['detached']){
+			// echo "removed";
+		}
 
 		return response()->httpCode(200)->json([
 			"data" => $customer,
