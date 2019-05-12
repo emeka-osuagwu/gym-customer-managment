@@ -14,9 +14,19 @@ The goal of the project is to create a dashboard for managing users and user pla
 
 
 #### Step 1 -> clone and startup the app:
+- run ```git clone git@github.com:emeka-osuagwu/gym-customer-managment.git``` to clone
+- cd into folder and run ```composer install```
+- run ``` php -S localhost:8080 ``` to start the app
+
+#### Step 2 -> clone and startup the app:
 - run ```git clone git@github.com:emeka-osuagwu/gym-customer-managment.git```
 - cd into folder and run ```composer install```
 
+
+
+- run ```docker exec  -it kontist_api_server bash``` to get into the dev ennviromennt
+- cd into ```/web``` and run ```composer install``` to pull dependencies
+- run ```php console kontist:migrate``` to run database migration
 #### Run Test:
   - while in the docker dev ennviromennt run ```./vendor/bin/phpunit``` 
 
